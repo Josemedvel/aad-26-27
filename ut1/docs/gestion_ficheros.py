@@ -1,6 +1,6 @@
 from pathlib import Path
 
-p = Path('docs')
+p = Path('.')
 print(p)
 print(p.exists())
 print(p.is_file())
