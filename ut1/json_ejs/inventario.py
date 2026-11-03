@@ -11,6 +11,11 @@ def printMenu():
     print("4 - Vender")# minimo entre stock y cantidad o fallar
     print("5 - Borrar")
     print("6 - Salir")
+    
+def leerInventario(p):
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
 if not p.exists():
     with open(p, "w", encoding="utf-8") as f:
         # primera forma
@@ -31,15 +36,11 @@ while not finished:
         continue
     match entrada:
         case 1:
-            with open(p, "r", encoding="utf-8") as f:
-                #dicc = json.loads(f.read())
-                dicc = json.load(f)
-                for item in dicc.items():
-                    print(item[0], "-->", item[1])
+            dicc = leerInventario(p)
+            for item in dicc.items():
+                print(item[0], "-->", item[1])
         case 2:
-            dicc = {}
-            with open(p, "r", encoding="utf-8") as f:
-                dicc = json.load(f)
+            dicc = leerInventario(p)
             producto = input("Inserte nombre de nuevo producto:\t")
             while producto.strip() == "":
                 producto = input("Inserte nombre de nuevo producto:\t")
@@ -51,9 +52,7 @@ while not finished:
             else:
                 print(f"El producto `{producto}` ya existe, y hay {dicc[producto]} unidades")
         case 3:
-            dicc = {}
-            with open(p, "r", encoding="utf-8") as f:
-                dicc = json.load(f)
+            dicc = leerInventario(p)
             producto = input("Ingrese el producto a reponer:\t")
             while producto.strip() == "":
                 producto = input("Ingrese el producto a reponer:\t")
@@ -77,9 +76,7 @@ while not finished:
                     json.dump(dicc, f)
                 print(f"Reposición de `{cantidad}` `{producto}`/s completa")
         case 5:
-            dicc = {}
-            with open(p, "r", encoding="utf-8") as f:
-                dicc = json.load(f)
+            dicc = leerInventario(p)
             producto = input("Ingrese el producto a eliminar del inventario: \t")
             while producto.strip() == "":
                 producto = input("Ingrese el producto a eliminar del inventario: \t")
