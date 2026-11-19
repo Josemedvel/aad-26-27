@@ -5,4 +5,4 @@ with sqlite3.connect("prueba.db") as conn:
     SELECT = "SELECT * FROM coches;"
     cur.execute(SELECT)
     for r in cur:
-        print(r[:3])
+        print(r)
